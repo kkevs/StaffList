@@ -68,14 +68,12 @@ public class PropertyManager {
 	}
 
 	public void deleteStaff() throws Exception {
-		System.out.println("asda");
 		staffDaoImpl.deleteStaff(selectedStaff);
 		selectedStaff = null;
 		cacheList = staffDaoImpl.getAllStaffList();
 	}
 
 	public void onRowEdit(RowEditEvent event) throws Exception {
-		System.out.println("asdasd");
 		staffDaoImpl.updateStaff(event);
 		FacesMessage msg = new FacesMessage("Staff Edited", ((Staff) event.getObject()).getId());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
