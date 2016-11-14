@@ -1,0 +1,105 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+</h:head>
+<h:body>
+	<h:form id="staff">
+		<p:growl id="msgs" showDetail="true" />
+		<p:panelGrid columns="2">
+			<f:facet name="header">
+			Personel Listesi
+			</f:facet>
+			<h:outputLabel for="key" value="Enter Name" />
+			<p:inputText id="key" value="#{manager.staff.name}" />
+
+			<h:outputLabel for="value" value="Enter Surname" />
+			<p:inputText id="value" value="#{manager.staff.surname}" />
+
+			<h:outputLabel for="age" value="Enter Age" />
+			<p:inputText id="age" value="#{manager.staff.age}" />
+
+			<h:outputLabel for="city" value="Enter City" />
+			<p:inputText id="city" value="#{manager.staff.city}" />
+
+			<p:commandButton action="#{manager.save}" update="mydata"
+				value="Save" icon="ui-icon-check" style="margin:0" />
+
+			<p:commandButton action="#{manager.clear}" update="mydata"
+				value="Delete" icon="ui-icon-cancel" style="margin:0" />
+			<h:messages />
+		</p:panelGrid>
+		<br />
+		<p:dataTable var="item" id="mydata" value="#{manager.cacheList}"
+			editable="true" rowKey="#{item.id}"
+			selection="#{manager.selectedStaff}" selectionMode="single">
+
+			<p:ajax event="rowEdit" listener="#{manager.onRowEdit}"
+				update=":staff:msgs" />
+			<p:ajax event="rowEditCancel" listener="#{manager.onRowCancel}"
+				update=":staff:msgs" />
+
+			<p:column headerText="Name">
+				<p:cellEditor>
+					<f:facet name="output">
+						<h:outputText value="#{item.name}" />
+					</f:facet>
+					<f:facet name="input">
+						<h:inputText value="#{item.name}" />
+					</f:facet>
+				</p:cellEditor>
+			</p:column>
+			<p:column headerText="Surname">
+				<p:cellEditor>
+					<f:facet name="output">
+						<h:outputText value="#{item.surname}" />
+					</f:facet>
+					<f:facet name="input">
+						<h:inputText value="#{item.surname}" />
+					</f:facet>
+				</p:cellEditor>
+			</p:column>
+			<p:column headerText="Age">
+				<p:cellEditor>
+					<f:facet name="output">
+						<h:outputText value="#{item.age}" />
+					</f:facet>
+					<f:facet name="input">
+						<h:inputText value="#{item.age}" />
+					</f:facet>
+				</p:cellEditor>
+			</p:column>
+			<p:column headerText="City">
+				<p:cellEditor>
+					<f:facet name="output">
+						<h:outputText value="#{item.city}" />
+					</f:facet>
+					<f:facet name="input">
+						<h:inputText value="#{item.city}" />
+					</f:facet>
+				</p:cellEditor>
+			</p:column>
+			<p:column headerText="Options" style="width:50px">
+				<p:rowEditor />
+			</p:column>
+		</p:dataTable>
+		<p:contextMenu for="mydata">
+			<p:menuitem value="Delete" update="mydata" icon="ui-icon-close"
+				actionListener="#{manager.deleteStaff}" />
+		</p:contextMenu>
+		<p:panel header="Export All Data">
+			<h:commandLink>
+				<p:graphicImage value="/icons/excel.png" height="50px" />
+				<p:dataExporter type="xls" postProcessor="#{manager.postProcessXLS}"
+					target="mydata" fileName="myexcel" />
+			</h:commandLink>
+			<h:commandLink>
+				<p:graphicImage value="/icons/pdf.png" height="50px" />
+				<p:dataExporter type="pdf" target="mydata" fileName="mypdf" />
+			</h:commandLink>
+		</p:panel>
+	</h:form>
+</h:body>
+</html>
