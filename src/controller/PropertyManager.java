@@ -23,6 +23,10 @@ import model.Staff;
 @SessionScoped
 public class PropertyManager {
 
+	
+	
+	
+	//Codes
 	List<Staff> cacheList;
 	private Staff staff = new Staff();
 	StaffDaoImpl staffDaoImpl = new StaffDaoImpl();
