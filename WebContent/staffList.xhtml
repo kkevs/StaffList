@@ -11,7 +11,6 @@
 		<p:panelGrid columns="2">
 			<f:facet name="header">
 			Staff List
-			
 			</f:facet>
 			<h:outputLabel for="key" value="Enter Name" />
 			<p:inputText id="key" value="#{manager.staff.name}" />
@@ -87,9 +86,31 @@
 			</p:column>
 		</p:dataTable>
 		<p:contextMenu for="mydata">
+			<p:menuitem value="View" update="staffDetail" icon="ui-icon-search"
+				oncomplete="PF('staffDialog').show()" />
 			<p:menuitem value="Delete" update="mydata" icon="ui-icon-close"
 				actionListener="#{manager.deleteStaff}" />
 		</p:contextMenu>
+		<p:dialog header="Staff info" widgetVar="staffDialog" modal="true"
+			showEffect="fade" hideEffect="fade" resizable="false">
+			<p:outputPanel id="staffDetail" style="text-align:center;">
+				<p:panelGrid columns="2"
+					rendered="#{not empty manager.selectedStaff}"
+					columnClasses="label,value">
+					<h:outputText value="Name" />
+					<h:outputText value="#{manager.selectedStaff.name}" />
+
+					<h:outputText value="Surname" />
+					<h:outputText value="#{manager.selectedStaff.surname}" />
+
+					<h:outputText value="Age" />
+					<h:outputText value="#{manager.selectedStaff.age}" />
+
+					<h:outputText value="City" />
+					<h:outputText value="#{manager.selectedStaff.city}" />
+				</p:panelGrid>
+			</p:outputPanel>
+		</p:dialog>
 		<p:panel header="Export All Data">
 			<h:commandLink>
 				<p:graphicImage value="/icons/excel.png" height="50px" />
