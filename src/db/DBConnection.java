@@ -4,9 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class DBConnection {
-	public Connection conn = null;
+	public static Connection conn=null;
 
-	public void newConnectDB() {
+	public static Connection newConnectDB() {
 		try {
 
 			Class.forName("org.postgresql.Driver");
@@ -15,9 +15,10 @@ public class DBConnection {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return null;
 	}
 
-	public void disconnectDB() throws Exception {
+	public static void disconnectDB() throws Exception {
 		conn.close();
 	}
 

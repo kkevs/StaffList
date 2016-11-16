@@ -7,6 +7,7 @@
 </h:head>
 <h:body>
 	<h:form id="staff">
+		<p>Welcome #{loginBean.login.user_name}</p>
 		<p:growl id="msgs" showDetail="true" />
 		<p:panelGrid columns="2">
 			<f:facet name="header">
@@ -122,6 +123,7 @@
 				<p:dataExporter type="pdf" target="mydata" fileName="mypdf" />
 			</h:commandLink>
 		</p:panel>
+		<h:commandLink action="#{loginBean.logout}" value="Logout"></h:commandLink>
 	</h:form>
 </h:body>
 </html>
